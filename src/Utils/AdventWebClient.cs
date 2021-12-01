@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -7,6 +8,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Logging;
 
 namespace AdventCode.Utils
@@ -19,6 +21,7 @@ namespace AdventCode.Utils
 
     public class AdventWebClient : IAdventWebClient
     {
+        private const string InputFileDirectory = "input";
         private readonly HttpClient _httpClient;
         private readonly ILogger<AdventWebClient> _logger;
         private static readonly Dictionary<string, WebResponse> ResponseDictionary = new();
@@ -38,11 +41,14 @@ namespace AdventCode.Utils
             }
             if (typeof(T) == typeof(int))
             {
-                return response.Split("\n").Select(x => int.TryParse(x, out var lineValue) ? lineValue : throw new ArgumentException("Provided value was not a number")).ToList() as List<T> ?? new List<T>();
+                return response.Split(new string[] { "\n" }, StringSplitOptions.TrimEntries).Select(x =>
+                    int.TryParse(x, out var lineValue)
+                     ? lineValue
+                     : throw new ArgumentException($"Provided value \"{x}\" was not a number")).ToList() as List<T> ?? new List<T>();
             }
             if (typeof(T) == typeof(string))
             {
-                return response.Split("\n").ToList() as List<T> ?? new List<T>();
+                return response.Split(new string[] { "\n" }, StringSplitOptions.TrimEntries).ToList() as List<T> ?? new List<T>();
             }
             _logger.LogError("Unhandled type parsing for list {ListType}", typeof(T));
             return new List<T>();
@@ -60,6 +66,7 @@ namespace AdventCode.Utils
             var response = new T();
             try
             {
+
                 if (ResponseDictionary.ContainsKey(url))
                 {
                     if (ResponseDictionary[url] is T returnResp)
@@ -67,7 +74,17 @@ namespace AdventCode.Utils
                         return returnResp;
                     }
                 }
+                var parsedFileName = $"{url.Replace("/", "-")}.txt";
                 response.RequestUrl = url;
+                //check if we have a successful response from the data first
+                if (File.Exists($"{InputFileDirectory}/{parsedFileName}"))
+                {
+                    response.StatusCode = HttpStatusCode.OK;
+                    response.ResponseData = await File.ReadAllBytesAsync($"{InputFileDirectory}/{parsedFileName}", ct);
+                    response.ResponseString = await File.ReadAllTextAsync($"{InputFileDirectory}/{parsedFileName}", ct);
+                    ResponseDictionary[url] = response;
+                    return response;
+                }
                 var httpResponse = await _httpClient.GetAsync(url, ct);
                 response.StatusCode = httpResponse.StatusCode;
                 response.ResponseHeaders = httpResponse.Headers;
@@ -81,6 +98,15 @@ namespace AdventCode.Utils
                         response.ResponseData = byteArray;
                         response.ResponseString = respString;
                         ResponseDictionary[url] = response;
+                        if (response.IsSuccess)
+                        {
+                            if (Directory.Exists(InputFileDirectory) == false)
+                            {
+                                Directory.CreateDirectory(InputFileDirectory);
+                            }
+                            await File.WriteAllTextAsync($"{InputFileDirectory}/{parsedFileName}", respString, Encoding.UTF8, ct);
+                        }
+
                     }
                     catch (Exception)
                     {
