@@ -13,13 +13,11 @@
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
-    <PackageReference Include="NLog" Version="4.7.12" />
-    <PackageReference Include="NLog.Extensions.Logging" Version="1.7.4" />
     <PackageReference Include="DotNetEnv" Version="2.2.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="nlog.config" CopyToOutputDirectory="Always" />
+    <Content Include="appsettings.json" CopyToOutputDirectory="Always" />
   </ItemGroup>
 
 </Project>
