@@ -155,9 +155,9 @@ class Program
         catch (NoDataException)
         {
 #if DEBUG
-            logger?.LogInformation(" No data is available for {TaskDay}", task.TaskDay);
+            logger?.LogInformation(" No data is available for day {TaskDay}", task.TaskDay);
 #else
-            Console.WriteLine(" No data is available for {0}", task.TaskDay);
+            Console.WriteLine(" No data is available for day {0}", task.TaskDay);
 #endif
         }
     }

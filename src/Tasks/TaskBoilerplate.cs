@@ -9,19 +9,19 @@ namespace AdventCode.Tasks;
 /// </summary>
 public class DayXTask : BaseCodeTask, IAdventCodeTask
 {
-    public int TaskDay => 0;
+    public override int TaskDay => 0;
     private readonly ILogger<DayXTask> _logger;
     public DayXTask(IAdventWebClient client, ILogger<DayXTask> logger) : base(client)
     {
         _logger = logger;
     }
 
-    public Task<string?> GetFirstTaskAnswer()
+    public override Task<string?> GetFirstTaskAnswer()
     {
         throw new TaskIncompleteException();
     }
 
-    public Task<string?> GetSecondTaskAnswer()
+    public override Task<string?> GetSecondTaskAnswer()
     {
         throw new TaskIncompleteException();
     }

@@ -12,23 +12,22 @@ public class Day1Task : BaseCodeTask, IAdventCodeTask
 {
     private readonly ILogger<Day1Task> _logger;
 
-    public int TaskDay => 1;
+    public override int TaskDay => 1;
 
     public Day1Task(IAdventWebClient client, ILogger<Day1Task> logger) : base(client)
     {
         _logger = logger;
     }
 
-    public async Task<string?> GetFirstTaskAnswer()
+    public override async Task<string?> GetFirstTaskAnswer()
     {
-        var dataInput = await GetData(TaskDay);
-        var inputLines = dataInput.Split("\n");
+        var inputLines = await GetDataAsList<int>();
         int numberIncreases = 0, numberDecreases = 0;
-        for (var i = 0; i < inputLines.Length; i++)
+        for (var i = 0; i < inputLines.Count; i++)
         {
             if (i == 0) continue;
-            var current = int.TryParse(inputLines[i], out var lineNubmer) ? lineNubmer : throw new ArgumentException("Provided value was not a number");
-            var previous = int.TryParse(inputLines[i - 1], out var prevLineNumber) ? prevLineNumber : throw new ArgumentException("Provided previous value was not a number");
+            var current = inputLines[i];
+            var previous = inputLines[i - 1];
             if (current > previous)
             {
                 numberIncreases++;
@@ -41,12 +40,11 @@ public class Day1Task : BaseCodeTask, IAdventCodeTask
         return numberIncreases.ToString();
     }
 
-    public async Task<string?> GetSecondTaskAnswer()
+    public override async Task<string?> GetSecondTaskAnswer()
     {
-        var dataInput = await GetData(TaskDay);
-        var inputLines = dataInput.Split("\n");
+        var inputLines = await GetDataAsList<int>();
         int numberIncreases = 0, numberDecreases = 0;
-        for (var i = 0; i < inputLines.Length - 2; i++)
+        for (var i = 0; i < inputLines.Count - 2; i++)
         {
             if (i == 0) continue;
             var current = GetWindowSum(inputLines[i], inputLines[i + 1], inputLines[i + 2]);
@@ -63,7 +61,5 @@ public class Day1Task : BaseCodeTask, IAdventCodeTask
         return numberIncreases.ToString();
     }
 
-    private static int GetWindowSum(string first, string second, string third) => (int.TryParse(first, out var firstInt) ? firstInt : throw new ArgumentException("First string was not a number")) +
-            (int.TryParse(second, out var secondInt) ? secondInt : throw new ArgumentException("Second string was not a number")) +
-            (int.TryParse(third, out var thirdInt) ? thirdInt : throw new ArgumentException("Third string was not a number"));
+    private static int GetWindowSum(int first, int second, int third) => first + second + third;
 }
