@@ -91,7 +91,7 @@ class Program
             return DayOverride;
         var currentTime = DateTime.Now;
         var convertedTime = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(currentTime, TimeZoneInfo.Local.Id, "Eastern Standard Time");
-        return convertedTime.Day;
+        return convertedTime.Day <= 25 ? convertedTime.Day : 25;
 #pragma warning restore CS0162
 #else
         var correctDay = 0;
