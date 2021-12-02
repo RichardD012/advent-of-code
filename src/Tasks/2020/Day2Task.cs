@@ -3,19 +3,19 @@ using AdventCode.Utils;
 using Microsoft.Extensions.Logging;
 using AdventCode.Tasks;
 
-namespace AdventCode.TasksYYYY;
+namespace AdventCode.Tasks2020;
 
 /// <summary>
 /// Boilerplate Task for Future Days
 /// </summary>
-public class DayXTask : BaseCodeTask, IAdventCodeTask
+public class Day2Task : BaseCodeTask, IAdventCodeTask
 {
-    public override int TaskDay => 0;
-    private readonly ILogger<DayXTask> _logger;
+    public override int TaskDay => 2;
+    private readonly ILogger<Day2Task> _logger;
     #region TestData
     protected override string TestData => @"";
     #endregion;
-    public DayXTask(IAdventWebClient client, ILogger<DayXTask> logger) : base(client)
+    public Day2Task(IAdventWebClient client, ILogger<Day2Task> logger) : base(client)
     {
         _logger = logger;
     }

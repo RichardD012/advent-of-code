@@ -60,14 +60,15 @@ namespace AdventCode.Utils
                         return returnResp;
                     }
                 }
-                var parsedFileName = $"{url.Replace($"{AdventUtils.GetCurrentYear()}/", "").Replace(" / ", " - ")}.txt";
+                var parsedFileName = $"{url.Replace($"{AdventUtils.GetCurrentYear()}/", "").Replace("/", "-")}.txt";
                 response.RequestUrl = url;
+                var outputFile = $"{InputFileDirectory}/{AdventUtils.GetCurrentYear()}/{parsedFileName}";
                 //check if we have a successful response from the data first
-                if (File.Exists($"{InputFileDirectory}/{AdventUtils.GetCurrentYear()}/{parsedFileName}"))
+                if (File.Exists(outputFile))
                 {
                     response.StatusCode = HttpStatusCode.OK;
-                    response.ResponseData = await File.ReadAllBytesAsync($"{InputFileDirectory}/{parsedFileName}", ct);
-                    response.ResponseString = await File.ReadAllTextAsync($"{InputFileDirectory}/{parsedFileName}", ct);
+                    response.ResponseData = await File.ReadAllBytesAsync(outputFile, ct);
+                    response.ResponseString = await File.ReadAllTextAsync(outputFile, ct);
                     ResponseDictionary[url] = response;
                     return response;
                 }
@@ -94,7 +95,7 @@ namespace AdventCode.Utils
                             {
                                 Directory.CreateDirectory($"{InputFileDirectory}/{AdventUtils.GetCurrentYear()}");
                             }
-                            await File.WriteAllTextAsync($"{InputFileDirectory}/{AdventUtils.GetCurrentYear()}/{parsedFileName}", respString, Encoding.UTF8, ct);
+                            await File.WriteAllTextAsync(outputFile, respString, Encoding.UTF8, ct);
                         }
 
                     }

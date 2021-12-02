@@ -111,6 +111,14 @@ class Program
                 Console.WriteLine(" The first task has not been completed yet");
 #endif
             }
+            catch (InvalidAnswerException)
+            {
+#if DEBUG
+                logger?.LogInformation(" The first task had an invalid computation");
+#else
+                Console.WriteLine(" The first task had an invalid computation");
+#endif
+            }
             try
             {
                 var task2Answer = await task.GetSecondTaskAnswer();
@@ -126,6 +134,14 @@ class Program
                 logger?.LogInformation(" The second task has not been completed yet");
 #else
                 Console.WriteLine(" The second task has not been completed yet");
+#endif
+            }
+            catch (InvalidAnswerException)
+            {
+#if DEBUG
+                logger?.LogInformation(" The second task had an invalid computation");
+#else
+                Console.WriteLine(" The second task had an invalid computation");
 #endif
             }
         }
