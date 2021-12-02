@@ -15,7 +15,7 @@ namespace AdventCode.Tasks
     public abstract class BaseCodeTask : IAdventCodeTask
     {
         private readonly IAdventWebClient _client;
-
+        protected abstract string TestData { get; }
         public abstract int TaskDay { get; }
 
         public BaseCodeTask(IAdventWebClient client)
@@ -31,6 +31,16 @@ namespace AdventCode.Tasks
                 throw new NoDataException();
             }
             return dataInput;
+        }
+
+        protected Task<string> GetTestData()
+        {
+            return Task.FromResult(TestData);
+        }
+
+        protected Task<List<T>> GetTestDataAsList<T>()
+        {
+            return Task.FromResult(TestData.ToDataList<T>());
         }
 
         protected async Task<List<T>> GetDataAsList<T>()

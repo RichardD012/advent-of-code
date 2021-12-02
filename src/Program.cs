@@ -16,6 +16,8 @@ namespace AdventCode;
 class Program
 {
 #if DEBUG
+    //manual override for testing upcoming days when you may not have the automatic day detection in effect
+    private const int DayOverride = -1;
     private static ILogger<Program>? logger;
 #endif
     static async Task Main(string[] args)
@@ -84,9 +86,13 @@ class Program
     private static int GetDay()
     {
 #if DEBUG
+#pragma warning disable CS0162
+        if (DayOverride >= 1 && DayOverride <= 25)
+            return DayOverride;
         var currentTime = DateTime.Now;
         var convertedTime = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(currentTime, TimeZoneInfo.Local.Id, "Eastern Standard Time");
         return convertedTime.Day;
+#pragma warning restore CS0162
 #else
         var correctDay = 0;
         var correctInput = false;

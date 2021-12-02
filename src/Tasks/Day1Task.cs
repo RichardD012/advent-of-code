@@ -11,8 +11,19 @@ namespace AdventCode.Tasks;
 public class Day1Task : BaseCodeTask, IAdventCodeTask
 {
     private readonly ILogger<Day1Task> _logger;
-
     public override int TaskDay => 1;
+    #region TestData
+    protected override string TestData => @"199
+200
+208
+210
+200
+207
+240
+269
+260
+263";
+    #endregion;
 
     public Day1Task(IAdventWebClient client, ILogger<Day1Task> logger) : base(client)
     {

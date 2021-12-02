@@ -35,23 +35,7 @@ namespace AdventCode.Utils
         public async Task<List<T>> GetDayInputList<T>(int day, CancellationToken ct = default)
         {
             var response = await GetDayInput(day, ct);
-            if (response == null)
-            {
-                return new List<T>();
-            }
-            if (typeof(T) == typeof(int))
-            {
-                return response.Split(new string[] { "\n" }, StringSplitOptions.TrimEntries).Select(x =>
-                    int.TryParse(x, out var lineValue)
-                     ? lineValue
-                     : throw new ArgumentException($"Provided value \"{x}\" was not a number")).ToList() as List<T> ?? new List<T>();
-            }
-            if (typeof(T) == typeof(string))
-            {
-                return response.Split(new string[] { "\n" }, StringSplitOptions.TrimEntries).ToList() as List<T> ?? new List<T>();
-            }
-            _logger.LogError("Unhandled type parsing for list {ListType}", typeof(T));
-            return new List<T>();
+            return response.ToDataList<T>();
         }
 
         public async Task<string?> GetDayInput(int day, CancellationToken ct = default)
