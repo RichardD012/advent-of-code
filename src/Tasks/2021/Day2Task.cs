@@ -14,7 +14,12 @@ public class Day2Task : BaseCodeTask, IAdventCodeTask
     public override int TaskDay => 2;
     private readonly ILogger<Day2Task> _logger;
     #region TestData
-    protected override string TestData => @"";
+    protected override string TestData => @"forward 5
+down 5
+forward 8
+up 3
+down 8
+forward 2";
     #endregion;
     public Day2Task(IAdventWebClient client, ILogger<Day2Task> logger) : base(client)
     {

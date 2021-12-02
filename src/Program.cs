@@ -17,7 +17,7 @@ class Program
 {
 #if DEBUG
     //manual override for testing upcoming days when you may not have the automatic day detection in effect
-    private const int DayOverride = 1;
+    private static readonly int? DayOverride = null;
     private static ILogger<Program>? logger;
 #endif
     static async Task Main(string[] args)
@@ -87,8 +87,8 @@ class Program
     {
 #if DEBUG
 #pragma warning disable CS0162
-        if (DayOverride >= 1 && DayOverride <= 25)
-            return DayOverride;
+        if (DayOverride != null && DayOverride >= 1 && DayOverride <= 25)
+            return DayOverride.Value;
         var currentTime = DateTime.Now;
         var convertedTime = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(currentTime, TimeZoneInfo.Local.Id, "Eastern Standard Time");
         return convertedTime.Day <= 25 ? convertedTime.Day : 25;
