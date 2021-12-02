@@ -16,8 +16,7 @@ namespace AdventCode;
 class Program
 {
 #if DEBUG
-    //manual override for testing upcoming days when you may not have the automatic day detection in effect
-    private static readonly int? DayOverride = null;
+
     private static ILogger<Program>? logger;
 #endif
     static async Task Main(string[] args)
@@ -36,6 +35,7 @@ class Program
             logger = loggerFactory.CreateLogger<Program>();
 #endif
             var servicesProvider = RegisterServices(config);
+            _ = AdventUtils.GetCurrentYear();
             using (servicesProvider as IDisposable)
             {
                 var type = GetDayType();
@@ -74,7 +74,7 @@ class Program
     {
         //TODO: Handle input
         var asm = typeof(Program).Assembly;
-        var dayValue = GetDay();
+        var dayValue = AdventUtils.GetDay();
         var type = asm.GetType($"AdventCode.Tasks{AdventUtils.GetCurrentYear()}.Day{dayValue}Task");
         if (type == null)
         {
@@ -83,43 +83,14 @@ class Program
         return type;
     }
 
-    private static int GetDay()
-    {
-#if DEBUG
-#pragma warning disable CS0162
-        if (DayOverride != null && DayOverride >= 1 && DayOverride <= 25)
-            return DayOverride.Value;
-        var currentTime = DateTime.Now;
-        var convertedTime = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(currentTime, TimeZoneInfo.Local.Id, "Eastern Standard Time");
-        return convertedTime.Day <= 25 ? convertedTime.Day : 25;
-#pragma warning restore CS0162
-#else
-        var correctDay = 0;
-        var correctInput = false;
-        do
-        {
-            Console.Write("Please Enter the Day: ");
-            var day = Console.ReadLine();
-            if ((int.TryParse(day, out var parsedDay) == false) || (parsedDay < 1 || parsedDay > 25))
-            {
-                Console.WriteLine("Please only enter a number 1-25");
-            }
-            else
-            {
-                correctInput = true;
-                correctDay = parsedDay;
-            }
-        } while (correctInput == false);
-        return correctDay;
-#endif
-    }
+
 
     private static async Task ExceuteTask(IAdventCodeTask task)
     {
 #if DEBUG
-        logger?.LogInformation("Day {TaskDay}", task.TaskDay);
+        logger?.LogInformation("{CurrentYear} Day {TaskDay}", AdventUtils.GetCurrentYear(), task.TaskDay);
 #else 
-        Console.WriteLine("Day {0}", task.TaskDay);
+        Console.WriteLine("{0} Day {1}", AdventUtils.GetCurrentYear(), task.TaskDay);
 #endif
         try
         {
