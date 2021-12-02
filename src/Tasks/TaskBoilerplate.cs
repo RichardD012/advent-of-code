@@ -20,13 +20,15 @@ public class DayXTask : BaseCodeTask, IAdventCodeTask
         _logger = logger;
     }
 
-    public override Task<string?> GetFirstTaskAnswer()
+    public override async Task<string?> GetFirstTaskAnswerAsync()
     {
+        _ = await GetDataAsListAsync<string>();
         throw new TaskIncompleteException();
     }
 
-    public override Task<string?> GetSecondTaskAnswer()
+    public override async Task<string?> GetSecondTaskAnswerAsync()
     {
+        _ = await GetDataAsListAsync<string>();
         throw new TaskIncompleteException();
     }
 }

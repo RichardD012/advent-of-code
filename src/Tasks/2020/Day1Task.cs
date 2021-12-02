@@ -25,9 +25,9 @@ public class Day1Task : BaseCodeTask, IAdventCodeTask
         _logger = logger;
     }
 
-    public override async Task<string?> GetFirstTaskAnswer()
+    public override async Task<string?> GetFirstTaskAnswerAsync()
     {
-        var data = await GetDataAsList<int>();
+        var data = await GetDataAsListAsync<int>();
         for (var i = 0; i < data.Count - 1; i++)
         {
             for (var n = i + 1; n < data.Count; n++)
@@ -41,9 +41,9 @@ public class Day1Task : BaseCodeTask, IAdventCodeTask
         throw new InvalidAnswerException();
     }
 
-    public override async Task<string?> GetSecondTaskAnswer()
+    public override async Task<string?> GetSecondTaskAnswerAsync()
     {
-        var data = await GetDataAsList<int>();
+        var data = await GetDataAsListAsync<int>();
         for (var i = 0; i < data.Count - 2; i++)
         {
             for (var n = i + 1; n < data.Count - 1; n++)

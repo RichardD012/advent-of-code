@@ -26,9 +26,9 @@ forward 2";
         _logger = logger;
     }
 
-    public override async Task<string?> GetFirstTaskAnswer()
+    public override async Task<string?> GetFirstTaskAnswerAsync()
     {
-        var data = await GetDataAsList<string>();
+        var data = await GetDataAsListAsync<string>();
         int horizontal = 0, depth = 0;
         data.ForEach(x =>
         {
@@ -51,9 +51,9 @@ forward 2";
         return (horizontal * depth).ToString();
     }
 
-    public override async Task<string?> GetSecondTaskAnswer()
+    public override async Task<string?> GetSecondTaskAnswerAsync()
     {
-        var data = await GetDataAsList<string>();
+        var data = await GetDataAsListAsync<string>();
         int horizontal = 0, depth = 0, aim = 0;
         data.ForEach(x =>
         {

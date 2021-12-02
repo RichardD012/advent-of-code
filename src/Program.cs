@@ -96,7 +96,7 @@ class Program
         {
             try
             {
-                var task1Answer = await task.GetFirstTaskAnswer();
+                var task1Answer = await task.GetFirstTaskAnswerAsync();
 #if DEBUG
                 logger?.LogInformation(" Task 1: {Task1Answer}", task1Answer);
 #else
@@ -121,7 +121,7 @@ class Program
             }
             try
             {
-                var task2Answer = await task.GetSecondTaskAnswer();
+                var task2Answer = await task.GetSecondTaskAnswerAsync();
 #if DEBUG
                 logger?.LogInformation(" Task 2: {Task2Answer}", task2Answer);
 #else

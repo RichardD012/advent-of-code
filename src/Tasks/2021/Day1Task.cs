@@ -32,9 +32,9 @@ public class Day1Task : BaseCodeTask, IAdventCodeTask
         _logger = logger;
     }
 
-    public override async Task<string?> GetFirstTaskAnswer()
+    public override async Task<string?> GetFirstTaskAnswerAsync()
     {
-        var inputLines = await GetDataAsList<int>();
+        var inputLines = await GetDataAsListAsync<int>();
         int numberIncreases = 0, numberDecreases = 0;
 
         //traditional solution
@@ -57,9 +57,9 @@ public class Day1Task : BaseCodeTask, IAdventCodeTask
         return sum.ToString();
     }
 
-    public override async Task<string?> GetSecondTaskAnswer()
+    public override async Task<string?> GetSecondTaskAnswerAsync()
     {
-        var inputLines = await GetDataAsList<int>();
+        var inputLines = await GetDataAsListAsync<int>();
         int numberIncreases = 0, numberDecreases = 0;
         //Traditional walk the array
         for (var i = 0; i < inputLines.Count - 2; i++)

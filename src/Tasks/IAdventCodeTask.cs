@@ -7,9 +7,9 @@ namespace AdventCode.Tasks
     public interface IAdventCodeTask
     {
         int TaskDay { get; }
-        Task<string?> GetFirstTaskAnswer();
+        Task<string?> GetFirstTaskAnswerAsync();
 
-        Task<string?> GetSecondTaskAnswer();
+        Task<string?> GetSecondTaskAnswerAsync();
     }
 
     public abstract class BaseCodeTask : IAdventCodeTask
@@ -23,9 +23,9 @@ namespace AdventCode.Tasks
             _client = client;
         }
 
-        protected async Task<string> GetData()
+        protected async Task<string> GetDataAsync()
         {
-            var dataInput = await _client.GetDayInput(TaskDay);
+            var dataInput = await _client.GetDayInputAsync(TaskDay);
             if (dataInput == null)
             {
                 throw new NoDataException();
@@ -33,23 +33,23 @@ namespace AdventCode.Tasks
             return dataInput;
         }
 
-        protected Task<string> GetTestData()
+        protected Task<string> GetTestDataAsync()
         {
             return Task.FromResult(TestData);
         }
 
-        protected Task<List<T>> GetTestDataAsList<T>()
+        protected Task<List<T>> GetTestDataAsListAsync<T>()
         {
             return Task.FromResult(TestData.ToDataList<T>());
         }
 
-        protected async Task<List<T>> GetDataAsList<T>()
+        protected async Task<List<T>> GetDataAsListAsync<T>()
         {
-            var dataInput = await _client.GetDayInputList<T>(TaskDay);
+            var dataInput = await _client.GetDayInputListAsync<T>(TaskDay);
             return dataInput;
         }
 
-        public abstract Task<string?> GetFirstTaskAnswer();
-        public abstract Task<string?> GetSecondTaskAnswer();
+        public abstract Task<string?> GetFirstTaskAnswerAsync();
+        public abstract Task<string?> GetSecondTaskAnswerAsync();
     }
 }

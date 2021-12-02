@@ -15,8 +15,8 @@ namespace AdventCode.Utils
 {
     public interface IAdventWebClient
     {
-        public Task<string?> GetDayInput(int day, CancellationToken ct = default);
-        public Task<List<T>> GetDayInputList<T>(int day, CancellationToken ct = default);
+        public Task<string?> GetDayInputAsync(int day, CancellationToken ct = default);
+        public Task<List<T>> GetDayInputListAsync<T>(int day, CancellationToken ct = default);
     }
 
     public class AdventWebClient : IAdventWebClient
@@ -32,21 +32,21 @@ namespace AdventCode.Utils
             _logger = logger;
         }
 
-        public async Task<List<T>> GetDayInputList<T>(int day, CancellationToken ct = default)
+        public async Task<List<T>> GetDayInputListAsync<T>(int day, CancellationToken ct = default)
         {
-            var response = await GetDayInput(day, ct);
+            var response = await GetDayInputAsync(day, ct);
             return response.ToDataList<T>();
         }
 
-        public async Task<string?> GetDayInput(int day, CancellationToken ct = default)
+        public async Task<string?> GetDayInputAsync(int day, CancellationToken ct = default)
         {
-            var response = await GetUrl<WebResponse>($"{AdventUtils.GetCurrentYear()}/day/{day}/input", ct);
+            var response = await GetUrlAsync<WebResponse>($"{AdventUtils.GetCurrentYear()}/day/{day}/input", ct);
             return response.ResponseString?.Trim();
         }
 
 
 
-        private async Task<T> GetUrl<T>(string url, CancellationToken ct = default) where T : WebResponse, new()
+        private async Task<T> GetUrlAsync<T>(string url, CancellationToken ct = default) where T : WebResponse, new()
         {
 
             var response = new T();

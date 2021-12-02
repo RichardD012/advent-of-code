@@ -18,15 +18,15 @@ public class Day3Task : BaseCodeTask, IAdventCodeTask
         _logger = logger;
     }
 
-    public override async Task<string?> GetFirstTaskAnswer()
+    public override async Task<string?> GetFirstTaskAnswerAsync()
     {
-        var data = await GetDataAsList<string>();
+        var data = await GetDataAsListAsync<string>();
         throw new TaskIncompleteException();
     }
 
-    public override async Task<string?> GetSecondTaskAnswer()
+    public override async Task<string?> GetSecondTaskAnswerAsync()
     {
-        var data = await GetDataAsList<string>();
+        var data = await GetDataAsListAsync<string>();
         throw new TaskIncompleteException();
     }
 }
