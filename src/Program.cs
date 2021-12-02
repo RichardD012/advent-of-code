@@ -17,7 +17,7 @@ class Program
 {
 #if DEBUG
     //manual override for testing upcoming days when you may not have the automatic day detection in effect
-    private const int DayOverride = -1;
+    private const int DayOverride = 1;
     private static ILogger<Program>? logger;
 #endif
     static async Task Main(string[] args)

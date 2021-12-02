@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using AdventCode.Utils;
 using Microsoft.Extensions.Logging;
@@ -29,11 +30,13 @@ public class Day1Task : BaseCodeTask, IAdventCodeTask
     {
         _logger = logger;
     }
-
+    //Correct answer is:1228
     public override async Task<string?> GetFirstTaskAnswer()
     {
         var inputLines = await GetDataAsList<int>();
         int numberIncreases = 0, numberDecreases = 0;
+
+        //traditional solution
         for (var i = 0; i < inputLines.Count; i++)
         {
             if (i == 0) continue;
@@ -48,9 +51,11 @@ public class Day1Task : BaseCodeTask, IAdventCodeTask
                 numberDecreases++;
             }
         }
-        return numberIncreases.ToString();
+        //functional solution
+        var sum = inputLines.Zip(inputLines.Skip(1), (first, second) => second > first ? 1 : 0).Sum();
+        return sum.ToString();
     }
-
+    //correct answer is: 1257
     public override async Task<string?> GetSecondTaskAnswer()
     {
         var inputLines = await GetDataAsList<int>();
