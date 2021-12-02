@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AdventCode.Tasks;
 using AdventCode.Utils;
 using Microsoft.Extensions.Logging;
-namespace AdventCode.Tasks;
+namespace AdventCode.Tasks2021;
 
 /// <summary>
 /// Day2s Test Tasks

@@ -1,10 +1,11 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using AdventCode.Tasks;
 using AdventCode.Utils;
 using Microsoft.Extensions.Logging;
 
-namespace AdventCode.Tasks;
+namespace AdventCode.Tasks2021;
 
 /// <summary>
 /// Day1s Test Tasks
@@ -30,7 +31,7 @@ public class Day1Task : BaseCodeTask, IAdventCodeTask
     {
         _logger = logger;
     }
-    //Correct answer is:1228
+
     public override async Task<string?> GetFirstTaskAnswer()
     {
         var inputLines = await GetDataAsList<int>();
@@ -55,11 +56,12 @@ public class Day1Task : BaseCodeTask, IAdventCodeTask
         var sum = inputLines.Zip(inputLines.Skip(1), (first, second) => second > first ? 1 : 0).Sum();
         return sum.ToString();
     }
-    //correct answer is: 1257
+
     public override async Task<string?> GetSecondTaskAnswer()
     {
         var inputLines = await GetDataAsList<int>();
         int numberIncreases = 0, numberDecreases = 0;
+        //Traditional walk the array
         for (var i = 0; i < inputLines.Count - 2; i++)
         {
             if (i == 0) continue;
@@ -74,7 +76,21 @@ public class Day1Task : BaseCodeTask, IAdventCodeTask
                 numberDecreases++;
             }
         }
-        return numberIncreases.ToString();
+        // More consice way compare
+        var sum = inputLines.Skip(3).Where((depth, index) =>
+        {
+            /** 
+            *   This workes because what this is technically comparing on the 
+            *   first iteration is inputLines[3] > inputLines[0].
+            *   If you look at the problem set, each grouping is technically
+            *   only comparing the first element of the first group, and the last
+            *   element of the second group becaues the other two
+            *   elements overlap in each group. Therefore the only difference
+            *   is the last vs the first.
+            */
+            return depth > inputLines[index];
+        }).Count();
+        return sum.ToString();
     }
 
     private static int GetWindowSum(int first, int second, int third) => first + second + third;

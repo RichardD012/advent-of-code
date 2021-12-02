@@ -40,14 +40,11 @@ namespace AdventCode.Utils
 
         public async Task<string?> GetDayInput(int day, CancellationToken ct = default)
         {
-            var response = await GetUrl<WebResponse>($"{GetCurrentYear()}/day/{day}/input", ct);
+            var response = await GetUrl<WebResponse>($"{AdventUtils.GetCurrentYear()}/day/{day}/input", ct);
             return response.ResponseString?.Trim();
         }
 
-        private static int GetCurrentYear()
-        {
-            return DateTime.Now.Year;
-        }
+
 
         private async Task<T> GetUrl<T>(string url, CancellationToken ct = default) where T : WebResponse, new()
         {
@@ -63,10 +60,10 @@ namespace AdventCode.Utils
                         return returnResp;
                     }
                 }
-                var parsedFileName = $"{url.Replace($"{GetCurrentYear()}/", "").Replace(" / ", " - ")}.txt";
+                var parsedFileName = $"{url.Replace($"{AdventUtils.GetCurrentYear()}/", "").Replace(" / ", " - ")}.txt";
                 response.RequestUrl = url;
                 //check if we have a successful response from the data first
-                if (File.Exists($"{InputFileDirectory}/{GetCurrentYear()}/{parsedFileName}"))
+                if (File.Exists($"{InputFileDirectory}/{AdventUtils.GetCurrentYear()}/{parsedFileName}"))
                 {
                     response.StatusCode = HttpStatusCode.OK;
                     response.ResponseData = await File.ReadAllBytesAsync($"{InputFileDirectory}/{parsedFileName}", ct);
@@ -93,11 +90,11 @@ namespace AdventCode.Utils
                             {
                                 Directory.CreateDirectory(InputFileDirectory);
                             }
-                            if (Directory.Exists($"{InputFileDirectory}/{GetCurrentYear()}") == false)
+                            if (Directory.Exists($"{InputFileDirectory}/{AdventUtils.GetCurrentYear()}") == false)
                             {
-                                Directory.CreateDirectory($"{InputFileDirectory}/{GetCurrentYear()}");
+                                Directory.CreateDirectory($"{InputFileDirectory}/{AdventUtils.GetCurrentYear()}");
                             }
-                            await File.WriteAllTextAsync($"{InputFileDirectory}/{GetCurrentYear()}/{parsedFileName}", respString, Encoding.UTF8, ct);
+                            await File.WriteAllTextAsync($"{InputFileDirectory}/{AdventUtils.GetCurrentYear()}/{parsedFileName}", respString, Encoding.UTF8, ct);
                         }
 
                     }

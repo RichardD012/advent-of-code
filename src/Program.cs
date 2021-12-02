@@ -75,7 +75,7 @@ class Program
         //TODO: Handle input
         var asm = typeof(Program).Assembly;
         var dayValue = GetDay();
-        var type = asm.GetType($"AdventCode.Tasks.Day{dayValue}Task");
+        var type = asm.GetType($"AdventCode.Tasks{AdventUtils.GetCurrentYear()}.Day{dayValue}Task");
         if (type == null)
         {
             throw new DayNotCreatedException(dayValue);

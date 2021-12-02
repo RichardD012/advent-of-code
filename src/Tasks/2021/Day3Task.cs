@@ -1,8 +1,9 @@
 using System.Threading.Tasks;
+using AdventCode.Tasks;
 using AdventCode.Utils;
 using Microsoft.Extensions.Logging;
 
-namespace AdventCode.Tasks;
+namespace AdventCode.AdventCode.Tasks2021;
 
 
 public class Day3Task : BaseCodeTask, IAdventCodeTask
