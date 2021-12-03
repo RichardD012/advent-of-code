@@ -20,6 +20,26 @@ public static class StringUtils
         return inString != null && inString.Equals(cmpString, StringComparison.CurrentCultureIgnoreCase);
     }
 
+    public static bool EqualsIgnoreCase(this char? inChar, string? cmpString)
+    {
+        if (inChar == null && cmpString == null)
+        {
+            return true;
+        }
+        if (inChar == null && cmpString != null)
+        {
+            return false;
+        }
+        return inChar.EqualsIgnoreCase(cmpString);
+    }
+
+    public static bool EqualsIgnoreCase(this char inChar, string? cmpString)
+    {
+        return inChar.ToString()?.Equals(cmpString, StringComparison.CurrentCultureIgnoreCase) ?? false;
+    }
+
+
+
     public static List<int> ToIntList(this string? inString)
     {
         if (string.IsNullOrEmpty(inString))
