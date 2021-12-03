@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AdventCode.Tasks;
@@ -56,6 +57,13 @@ public class Day3Task : BaseCodeTask, IAdventCodeTask
     public override async Task<string?> GetSecondTaskAnswerAsync()
     {
         var data = await GetDataAsListAsync<string>();
+        var oxygen = GetProminentPosition(data.ToList(), (ones, zeroes) => ones >= zeroes ? "1" : "0");
+        var scrubber = GetProminentPosition(data.ToList(), (ones, zeroes) => ones >= zeroes ? "0" : "1");
+        return (Convert.ToInt32(oxygen, 2) * Convert.ToInt32(scrubber, 2)).ToString();
+    }
+
+    private static string? GetProminentPosition(List<string> data, Func<int, int, string> func)
+    {
         var count = new int[data[0].Length];
         for (int positionX = 0; positionX < data[0].Length; positionX++)
         {
@@ -68,49 +76,17 @@ public class Day3Task : BaseCodeTask, IAdventCodeTask
             }
             //resize data based on the currentPositionX;
             var ones = count[positionX];
-            var zeros = data.Count - count[positionX];
-            if (ones >= zeros)
-            {
-                data = data.Where(x => x[positionX].EqualsIgnoreCase("1")).ToList();
-            }
-            else
-            {
-                data = data.Where(x => x[positionX].EqualsIgnoreCase("0")).ToList();
-            }
+            var zeros = data.Count - ones;
+            data = data.Where(x => x[positionX].EqualsIgnoreCase(func(ones, zeros))).ToList();
             if (data.Count == 1)
             {
                 break;
             }
         }
-        var oxygen = data[0];
-        data = await GetDataAsListAsync<string>();
-        count = new int[data[0].Length];
-        for (int positionX = 0; positionX < data[0].Length; positionX++)
+        if (data.Count > 1)
         {
-            for (int positionY = 0; positionY < data.Count; positionY++)
-            {
-                if (data[positionY][positionX].EqualsIgnoreCase("1"))
-                {
-                    count[positionX]++;
-                }
-            }
-            //resize data based on the currentPositionX;
-            var ones = count[positionX];
-            var zeros = data.Count - count[positionX];
-            if (ones >= zeros)
-            {
-                data = data.Where(x => x[positionX].EqualsIgnoreCase("0")).ToList();
-            }
-            else
-            {
-                data = data.Where(x => x[positionX].EqualsIgnoreCase("1")).ToList();
-            }
-            if (data.Count == 1)
-            {
-                break;
-            }
+            throw new InvalidAnswerException();
         }
-        var scrubber = data[0];
-        return (Convert.ToInt32(oxygen, 2) * Convert.ToInt32(scrubber, 2)).ToString();
+        return data[0];
     }
 }
