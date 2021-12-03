@@ -6,9 +6,6 @@ using System.Linq;
 
 namespace AdventCode.Tasks2020;
 
-/// <summary>
-/// Boilerplate Task for Future Days
-/// </summary>
 public class Day2Task : BaseCodeTask, IAdventCodeTask
 {
     public override int TaskDay => 2;

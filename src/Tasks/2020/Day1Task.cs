@@ -5,9 +5,6 @@ using AdventCode.Tasks;
 
 namespace AdventCode.Tasks2020;
 
-/// <summary>
-/// Boilerplate Task for Future Days
-/// </summary>
 public class Day1Task : BaseCodeTask, IAdventCodeTask
 {
     public override int TaskDay => 1;
