@@ -41,7 +41,7 @@ iyr:2011 ecl:brn hgt:59in";
         return passports.Count(x => x.IsValid()).ToString();
     }
 
-    private List<Passport> GeneratePassports(List<string> data)
+    private static List<Passport> GeneratePassports(List<string> data)
     {
         var passports = new List<Passport>();
         var index = 0;
