@@ -87,6 +87,10 @@ class Program
 
     private static async Task ExceuteTask(IAdventCodeTask task)
     {
+        if (task.TaskDay == 0)
+        {
+            throw new NotImplementedException("Provided Day was not implemented since the task has a day of 0");
+        }
 #if DEBUG
         logger?.LogInformation("{CurrentYear} Day {TaskDay}", AdventUtils.GetCurrentYear(), task.TaskDay);
 #else 

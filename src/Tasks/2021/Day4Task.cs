@@ -7,7 +7,7 @@ namespace AdventCode.Tasks2021;
 
 public class Day4Task : BaseCodeTask, IAdventCodeTask
 {
-    public override int TaskDay => 0;
+    public override int TaskDay => 4;
     private readonly ILogger<Day4Task> _logger;
     #region TestData
     protected override string TestData => @"";

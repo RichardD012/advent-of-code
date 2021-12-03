@@ -52,7 +52,6 @@ namespace AdventCode.Utils
             var response = new T();
             try
             {
-
                 if (ResponseDictionary.ContainsKey(url))
                 {
                     if (ResponseDictionary[url] is T returnResp)
