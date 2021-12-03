@@ -9,8 +9,8 @@ public static class AdventUtils
 {
 #if DEBUG
     //manual override for testing upcoming days when you may not have the automatic day detection in effect
-    private static readonly int? DayOverride = 4;
-    private readonly static int? YearOverride = 2020;
+    private static readonly int? DayOverride = null;
+    private readonly static int? YearOverride = null;
 #endif
     private static int? CurrentYear = null;
     public static int GetCurrentYear()
