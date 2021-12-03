@@ -58,8 +58,8 @@ public class Day3Task : BaseCodeTask, IAdventCodeTask
     public override async Task<string?> GetSecondTaskAnswerAsync()
     {
         var data = await GetDataAsListAsync<string>();
-        var oxygen = GetProminentPosition(data.ToList(), (ones, zeroes) => ones >= zeroes ? "1" : "0");
-        var scrubber = GetProminentPosition(data.ToList(), (ones, zeroes) => ones >= zeroes ? "0" : "1");
+        var oxygen = GetProminentPosition(data, (ones, zeroes) => ones >= zeroes ? "1" : "0");
+        var scrubber = GetProminentPosition(data, (ones, zeroes) => ones >= zeroes ? "0" : "1");
         return (Convert.ToInt32(oxygen, 2) * Convert.ToInt32(scrubber, 2)).ToString();
     }
 
