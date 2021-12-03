@@ -65,20 +65,17 @@ public class Day3Task : BaseCodeTask, IAdventCodeTask
 
     private static string? GetProminentPosition(List<string> data, Func<int, int, string> func)
     {
-        var count = new int[data[0].Length];
         for (int positionX = 0; positionX < data[0].Length; positionX++)
         {
+            var onesCount = 0;
             for (int positionY = 0; positionY < data.Count; positionY++)
             {
                 if (data[positionY][positionX].EqualsIgnoreCase("1"))
                 {
-                    count[positionX]++;
+                    onesCount++;
                 }
             }
-            //resize data based on the currentPositionX;
-            var ones = count[positionX];
-            var zeros = data.Count - ones;
-            data = data.Where(x => x[positionX].EqualsIgnoreCase(func(ones, zeros))).ToList();
+            data = data.Where(x => x[positionX].EqualsIgnoreCase(func(onesCount, data.Count - onesCount))).ToList();
             if (data.Count == 1)
             {
                 break;
