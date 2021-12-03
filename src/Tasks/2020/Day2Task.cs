@@ -14,7 +14,8 @@ public class Day2Task : BaseCodeTask, IAdventCodeTask
     protected override string TestData => @"1-3 a: abcde
 1-3 b: cdefg
 2-9 c: ccccccccc";
-    #endregion;
+    #endregion
+
     public Day2Task(IAdventWebClient client, ILogger<Day2Task> logger) : base(client)
     {
         _logger = logger;

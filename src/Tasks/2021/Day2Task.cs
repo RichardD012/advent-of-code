@@ -20,7 +20,8 @@ forward 8
 up 3
 down 8
 forward 2";
-    #endregion;
+    #endregion
+
     public Day2Task(IAdventWebClient client, ILogger<Day2Task> logger) : base(client)
     {
         _logger = logger;

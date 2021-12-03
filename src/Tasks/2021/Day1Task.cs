@@ -25,7 +25,7 @@ public class Day1Task : BaseCodeTask, IAdventCodeTask
 269
 260
 263";
-    #endregion;
+    #endregion
 
     public Day1Task(IAdventWebClient client, ILogger<Day1Task> logger) : base(client)
     {

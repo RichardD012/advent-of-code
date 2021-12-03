@@ -14,7 +14,8 @@ public class DayXTask : BaseCodeTask, IAdventCodeTask
     private readonly ILogger<DayXTask> _logger;
     #region TestData
     protected override string TestData => @"";
-    #endregion;
+    #endregion
+
     public DayXTask(IAdventWebClient client, ILogger<DayXTask> logger) : base(client)
     {
         _logger = logger;
