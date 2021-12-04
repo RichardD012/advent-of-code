@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Diagnostics.Metrics;
 using Sprache;
+using System;
 
 namespace AdventCode.Tasks2021;
 
@@ -109,9 +110,11 @@ public class Day4Task : BaseCodeTask, IAdventCodeTask
         private Spot[,] Board { get; set; } = new Spot[5, 5];
         public BingoBoard(List<string> boardInput)
         {
+            if (boardInput.Count != 5) throw new ArgumentOutOfRangeException(nameof(boardInput), "Wrong number of rows for board");
             for (var y = 0; y < boardInput.Count; y++)
             {
                 var inputs = boardInput[y].Trim().Split(" ").Where(x => string.IsNullOrEmpty(x) == false).Select(x => int.Parse(x)).ToList();
+                if (inputs.Count != 5) throw new ArgumentOutOfRangeException(nameof(inputs), "Wrong number of columns for board");
                 for (var x = 0; x < inputs.Count; x++)
                 {
                     Board[y, x] = new Spot(inputs[x]);
