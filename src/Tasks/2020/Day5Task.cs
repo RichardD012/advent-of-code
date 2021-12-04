@@ -58,13 +58,9 @@ public class Day5Task : BaseCodeTask, IAdventCodeTask
         if (Direction != 'F' && Direction != 'L' && Direction != 'B' && Direction != 'R') throw new ArgumentOutOfRangeException(nameof(Direction), "Invalid Direction Provided");
         if (Direction == 'F' || Direction == 'L')
         {
-            var takeIndex = (int)Math.Floor(Partition.Length / 2.0);
-            var smallResult = Partition.Take(takeIndex).ToArray();
-            return smallResult;
+            return Partition.Take((int)Math.Floor(Partition.Length / 2.0)).ToArray();
         }
-        var skipIndex = (int)Math.Ceiling(Partition.Length / 2.0);
-        var result = Partition.Skip(skipIndex).ToArray();
-        return result;
+        return Partition.Skip((int)Math.Ceiling(Partition.Length / 2.0)).ToArray();
     }
 
     public override async Task<string?> GetSecondTaskAnswerAsync()
