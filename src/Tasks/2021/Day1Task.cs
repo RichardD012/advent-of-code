@@ -1,10 +1,3 @@
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-using AdventCode.Tasks;
-using AdventCode.Utils;
-using Microsoft.Extensions.Logging;
-
 namespace AdventCode.Tasks2021;
 
 /// <summary>

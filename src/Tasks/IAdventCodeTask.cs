@@ -1,7 +1,3 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using AdventCode.Utils;
-
 namespace AdventCode.Tasks
 {
     public interface IAdventCodeTask

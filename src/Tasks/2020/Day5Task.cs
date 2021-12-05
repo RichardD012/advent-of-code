@@ -1,12 +1,3 @@
-using System.Threading.Tasks;
-using AdventCode.Utils;
-using Microsoft.Extensions.Logging;
-using AdventCode.Tasks;
-using System;
-using System.Text.RegularExpressions;
-using System.Linq;
-using System.Collections.Generic;
-
 namespace AdventCode.Tasks2020;
 
 public class Day5Task : BaseCodeTask, IAdventCodeTask

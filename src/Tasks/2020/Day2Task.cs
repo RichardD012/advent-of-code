@@ -1,9 +1,3 @@
-using System.Threading.Tasks;
-using AdventCode.Utils;
-using Microsoft.Extensions.Logging;
-using AdventCode.Tasks;
-using System.Linq;
-
 namespace AdventCode.Tasks2020;
 
 public class Day2Task : BaseCodeTask, IAdventCodeTask

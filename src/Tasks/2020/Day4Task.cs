@@ -1,10 +1,3 @@
-using System.Threading.Tasks;
-using AdventCode.Utils;
-using Microsoft.Extensions.Logging;
-using AdventCode.Tasks;
-using System.Linq;
-using System;
-using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace AdventCode.Tasks2020;

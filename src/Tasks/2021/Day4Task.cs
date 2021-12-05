@@ -1,13 +1,3 @@
-using System.Threading.Tasks;
-using AdventCode.Utils;
-using Microsoft.Extensions.Logging;
-using AdventCode.Tasks;
-using System.Collections.Generic;
-using System.Linq;
-using System.Diagnostics.Metrics;
-using Sprache;
-using System;
-
 namespace AdventCode.Tasks2021;
 
 public class Day4Task : BaseCodeTask, IAdventCodeTask

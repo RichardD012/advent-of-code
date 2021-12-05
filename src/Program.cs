@@ -1,15 +1,7 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using DotNetEnv;
+﻿using DotNetEnv;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using AdventCode.Tasks;
-using AdventCode.Utils;
-using System.Net.Http;
 using System.Net;
-using Microsoft.Extensions.Logging.Configuration;
 
 namespace AdventCode;
 
