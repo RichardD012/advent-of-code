@@ -15,7 +15,7 @@ public class Day5Task : BaseCodeTask, IAdventCodeTask
 
     public override async Task<string?> GetFirstTaskAnswerAsync()
     {
-        _ = await GetDataAsListAsync<string>();
+        var data = await GetDataAsListAsync<string>();
         throw new TaskIncompleteException();
     }
 

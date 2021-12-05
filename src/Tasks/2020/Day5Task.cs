@@ -2,6 +2,8 @@ namespace AdventCode.Tasks2020;
 
 public class Day5Task : BaseCodeTask, IAdventCodeTask
 {
+    private const int NumRows = 128;
+    private const int NumColumns = 8;
     public override int TaskDay => 5;
     private readonly ILogger<Day5Task> _logger;
     #region TestData
@@ -22,12 +24,12 @@ public class Day5Task : BaseCodeTask, IAdventCodeTask
         var maxId = 0;
         foreach (var row in data)
         {
-            var rows = Enumerable.Range(0, 128).ToArray();
+            var rows = Enumerable.Range(0, NumRows).ToArray();
             for (var i = 0; i < 7; i++)
             {
                 rows = GetPartition(row[i], rows);
             }
-            var columns = Enumerable.Range(0, 8).ToArray();
+            var columns = Enumerable.Range(0, NumColumns).ToArray();
             for (var i = 7; i < 10; i++)
             {
                 columns = GetPartition(row[i], columns);
@@ -36,7 +38,7 @@ public class Day5Task : BaseCodeTask, IAdventCodeTask
             {
                 throw new InvalidAnswerException();
             }
-            var ticketId = (rows[0] * 8) + columns[0];
+            var ticketId = CalculateTicketId(rows[0], columns[0]);
             if (ticketId > maxId)
             {
                 maxId = ticketId;
@@ -49,15 +51,15 @@ public class Day5Task : BaseCodeTask, IAdventCodeTask
     {
         var foundIds = new List<int>();
         var data = await GetDataAsListAsync<string>();
-        var seats = new bool[128, 8];
+        var seats = new bool[NumRows, NumColumns];
         foreach (var row in data)
         {
-            var rows = Enumerable.Range(0, 128).ToArray();
+            var rows = Enumerable.Range(0, NumRows).ToArray();
             for (var i = 0; i < 7; i++)
             {
                 rows = GetPartition(row[i], rows);
             }
-            var columns = Enumerable.Range(0, 8).ToArray();
+            var columns = Enumerable.Range(0, NumColumns).ToArray();
             for (var i = 7; i < 10; i++)
             {
                 columns = GetPartition(row[i], columns);
@@ -67,16 +69,16 @@ public class Day5Task : BaseCodeTask, IAdventCodeTask
                 throw new InvalidAnswerException();
             }
             seats[rows[0], columns[0]] = true;
-            var ticketId = (rows[0] * 8) + columns[0];
+            var ticketId = CalculateTicketId(rows[0], columns[0]);
             foundIds.Add(ticketId);
         }
-        for (var row = 0; row < 128; row++)
+        for (var row = 0; row < NumRows; row++)
         {
-            for (var col = 0; col < 8; col++)
+            for (var col = 0; col < NumColumns; col++)
             {
                 if (seats[row, col] == false)
                 {
-                    var thisId = (row * 8) + col;
+                    var thisId = CalculateTicketId(row, col);
                     if (foundIds.Contains(thisId + 1) && foundIds.Contains(thisId - 1))
                     {
                         return thisId.ToString();
@@ -86,6 +88,8 @@ public class Day5Task : BaseCodeTask, IAdventCodeTask
         }
         throw new InvalidAnswerException();
     }
+
+    private int CalculateTicketId(int row, int column) => (row * 8) + column;
 
     private static int[] GetPartition(char Direction, int[] Partition)
     {
