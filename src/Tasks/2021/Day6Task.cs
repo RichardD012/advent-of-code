@@ -7,7 +7,6 @@ public class Day6Task : BaseCodeTask, IAdventCodeTask
     public override int TaskDay => 6;
     private readonly ILogger<Day6Task> _logger;
     #region TestData
-    //protected override string TestData => @"3,4,3,1,2";
     protected override string TestData => @"3,4,3,1,2";
     #endregion
 
