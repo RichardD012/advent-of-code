@@ -55,14 +55,16 @@ public class Day7Task : BaseCodeTask, IAdventCodeTask
         }
         return leastMoves.ToString();
     }
-    //There should probably be a better formula for this?
+    //Binomial coefficient: https://en.wikipedia.org/wiki/Binomial_coefficient
     private static int CalculateMoves(int steps)
     {
-        int returnInt = 0;
+        //Dumb way - steps + (steps - 1 ) + ... + 1
+        /*int returnInt = 0;
         for (int i = 1; i <= steps; i++)
         {
             returnInt += i;
         }
-        return returnInt;
+        return returnInt;*/
+        return (steps * (steps + 1)) / 2;
     }
 }
