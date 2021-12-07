@@ -57,7 +57,7 @@ public static class AdventUtils
             return DayOverride.Value;
         var currentTime = DateTime.Now;
         var convertedTime = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(currentTime, TimeZoneInfo.Local.Id, "Eastern Standard Time");
-        return convertedTime.Day <= 25 ? convertedTime.Day : 25;
+        return convertedTime.Day <= 25 && convertedTime.Month == 12 ? convertedTime.Day : 25;
 #pragma warning restore CS0162
 #else
         var correctDay = 0;
