@@ -53,7 +53,7 @@ public class Day6Task : BaseCodeTask, IAdventCodeTask
         {
             //create a new Dictionary taking the previous days count and setting it to the next so 8-> 7-> 6. 
             //However on Day 6 *and* Day 8 you are setting Day 0 since this is the exponential growth
-            testData = new Dictionary<int, long>()
+            testData = new()
             {
                 [8] = testData.GetValueOrDefault(0),
                 [7] = testData.GetValueOrDefault(8),
