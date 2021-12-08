@@ -30,16 +30,20 @@ b";
     public override async Task<string?> GetFirstTaskAnswerAsync()
     {
         var data = await GetDataAsListAsync<string>();
-        var answers = GenerateAnswerBoard<Dictionary<string, int>>(data, (stringEntry, boards) =>
+        var answers = GenerateAnswerBoard<Dictionary<string, int>>(data, (groupEntry, boards) =>
         {
+            //Answer dictionary for a given group
             var seenCount = new Dictionary<string, bool>();
-            foreach (var line in stringEntry)
+            //a persons answers in a group
+            foreach (var line in groupEntry)
             {
+                //each individual answer
                 foreach (var lineChar in line)
                 {
-                    seenCount[lineChar.ToString()] = true;
+                    seenCount[lineChar.ToString()] = true; //simply mark this answer as seen
                 }
             }
+            //for the existing board result, add each answer that was seen by that group
             foreach (var answers in seenCount.Keys)
             {
                 boards[answers] = boards.GetValueOrDefault(answers) + 1;
@@ -52,11 +56,11 @@ b";
     public override async Task<string?> GetSecondTaskAnswerAsync()
     {
         var data = await GetDataAsListAsync<string>();
-        return GenerateAnswerBoard<int>(data, (stringEntry, returnCount) =>
+        return GenerateAnswerBoard<int>(data, (groupEntry, returnCount) =>
         {
             var groupAnswers = new Dictionary<string, int>();
             //each person in the group
-            foreach (var line in stringEntry)
+            foreach (var line in groupEntry)
             {
                 //each persons answers
                 foreach (var lineChar in line)
@@ -66,7 +70,7 @@ b";
             }
             foreach (var answer in groupAnswers.Keys)
             {
-                if (groupAnswers[answer] == stringEntry.Count)
+                if (groupAnswers[answer] == groupEntry.Count) // compare the answers for this letter/question to the number of people. They need to match
                 {
                     returnCount++;
                 }
@@ -75,6 +79,13 @@ b";
         }).ToString();
     }
 
+    /// <summary>
+    /// Function to process each group in the answers
+    /// </summary>
+    /// <param name="data">Data is the input data from the Problem 6 input data</param>
+    /// <param name="updateFunction">Function to perform on each answer group. The input is the list of answers for that group and the existing result set.</param>
+    /// <typeparam name="TReturn">Type of data the calling function is expecting.</typeparam>
+    /// <returns>Updated return set</returns>
     private static TReturn GenerateAnswerBoard<TReturn>(List<string> data, Func<List<string>, TReturn, TReturn> updateFunction) where TReturn : new()
     {
         var returnCount = new TReturn();
