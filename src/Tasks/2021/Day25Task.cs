@@ -1,17 +1,15 @@
-namespace AdventCode.TasksYYYY;
+namespace AdventCode.Tasks2021;
 
-/// <summary>
-/// Boilerplate Task for Future Days
-/// </summary>
-public class DayXTask : BaseCodeTask, IAdventCodeTask
+
+public class Day25Task : BaseCodeTask, IAdventCodeTask
 {
-    public override int TaskDay => 0;
-    private readonly ILogger<DayXTask> _logger;
+    public override int TaskDay => 25;
+    private readonly ILogger<Day25Task> _logger;
     #region TestData
     protected override string TestData => @"";
     #endregion
 
-    public DayXTask(IAdventWebClient client, ILogger<DayXTask> logger) : base(client)
+    public Day25Task(IAdventWebClient client, ILogger<Day25Task> logger) : base(client)
     {
         _logger = logger;
     }
