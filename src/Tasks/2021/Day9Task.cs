@@ -59,7 +59,6 @@ public class Day9Task : BaseCodeTask, IAdventCodeTask
                 }
                 if (y < data.Count - 1)
                 {
-
                     otherPoints.Add(int.Parse(data[y + 1][x].ToString()));
                 }
                 if (otherPoints.Any(x => x <= thisPoint) == false)
