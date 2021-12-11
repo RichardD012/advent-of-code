@@ -87,8 +87,7 @@ public class Day10Task : BaseCodeTask, IAdventCodeTask
             {
                 while (stack.Count != 0)
                 {
-                    var currentEntry = stack.Pop();
-                    incompleteScore = (incompleteScore * 5) + GetMissingValueScore(GetCorrespondingEndCharacter(currentEntry));
+                    incompleteScore = (incompleteScore * 5) + GetMissingValueScore(GetCorrespondingEndCharacter(stack.Pop()));
                 }
                 incompleteScores.Add(incompleteScore);
             }
