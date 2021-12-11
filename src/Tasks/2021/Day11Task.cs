@@ -74,7 +74,7 @@ public class Day11Task : BaseCodeTask, IAdventCodeTask
 
     private static int[,] GenerateGrid(List<string> data)
     {
-        //assume all of the grid is say size
+        //assume all of the grid is same size
         var returnGrid = new int[data.Count, data[0].Length];
         for (var y = 0; y < data.Count; y++)
         {
