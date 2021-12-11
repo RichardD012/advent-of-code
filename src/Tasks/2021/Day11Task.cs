@@ -92,19 +92,18 @@ public class Day11Task : BaseCodeTask, IAdventCodeTask
         {
             return 0;
         }
-
         if (seen[y, x] == true)
         {
             return 0;
         }
-        if (grid[y, x] == 9)
+        grid[y, x]++;
+        if (grid[y, x] > 9) //was 9 and the iteration made it 10
         {
-            grid[y, x] = 0;
-            seen[y, x] = true;
+            grid[y, x] = 0; //reset to 0
+            seen[y, x] = true; //can only flash once per iteration
             return 1 + IterateFlash(grid, seen, y - 1, x) + IterateFlash(grid, seen, y, x - 1) + IterateFlash(grid, seen, y, x + 1) + IterateFlash(grid, seen, y + 1, x) +
                 IterateFlash(grid, seen, y - 1, x - 1) + IterateFlash(grid, seen, y - 1, x + 1) + IterateFlash(grid, seen, y + 1, x - 1) + IterateFlash(grid, seen, y + 1, x + 1);
         }
-        grid[y, x]++;
         return 0;
     }
 }
