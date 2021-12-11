@@ -30,14 +30,8 @@ public class Day11Task : BaseCodeTask, IAdventCodeTask
         var flashes = 0;
         for (var i = 0; i < 100; i++)
         {
-            var seen = new bool[grid.GetLength(0), grid.GetLength(1)];
-            for (var y = 0; y < grid.GetLength(0); y++)
-            {
-                for (var x = 0; x < grid.GetLength(1); x++)
-                {
-                    flashes += IterateFlash(grid, seen, y, x);
-                }
-            }
+            var (stepFlashes, _) = IterateGridForStep(grid);
+            flashes += stepFlashes;
         }
         return flashes.ToString();
     }
@@ -50,14 +44,7 @@ public class Day11Task : BaseCodeTask, IAdventCodeTask
         var allFlashed = false;
         while (allFlashed == false)
         {
-            var seen = new bool[grid.GetLength(0), grid.GetLength(1)];
-            for (var y = 0; y < grid.GetLength(0); y++)
-            {
-                for (var x = 0; x < grid.GetLength(1); x++)
-                {
-                    _ = IterateFlash(grid, seen, y, x);
-                }
-            }
+            var (_, seen) = IterateGridForStep(grid);
             step++;
             var flashed = true;
             for (var y = 0; y < grid.GetLength(0); y++)
@@ -69,7 +56,20 @@ public class Day11Task : BaseCodeTask, IAdventCodeTask
             }
             allFlashed = flashed;
         }
-        return step.ToString(); ;
+        return step.ToString();
+    }
+    private static (int, bool[,]) IterateGridForStep(int[,] grid)
+    {
+        var seen = new bool[grid.GetLength(0), grid.GetLength(1)];
+        int count = 0;
+        for (var y = 0; y < grid.GetLength(0); y++)
+        {
+            for (var x = 0; x < grid.GetLength(1); x++)
+            {
+                count += IterateFlash(grid, seen, y, x);
+            }
+        }
+        return (count, seen);
     }
 
     private static int[,] GenerateGrid(List<string> data)
