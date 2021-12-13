@@ -73,6 +73,7 @@ fold along x=5";
         var pixelWidth = 20;
         var margin = 2;
         var letters = coordinates.GetLength(1) / (letterWidth + spacing);
+        byte[] bytes;
         using (var ms = new MemoryStream())
         {
             using (var resultImage = new Image<Rgba32>(pixelWidth * ((letters - 1) * (letterWidth + spacing) + letterWidth) + (margin * 2 * pixelWidth), pixelWidth * coordinates.GetLength(0) + (margin * 2 * pixelWidth)))
@@ -91,10 +92,10 @@ fold along x=5";
                         }
                     }
                 });
-                resultImage.SaveAsPng($"Day13.png");
+                resultImage.SaveAsPng(ms);
+                bytes = ms.ToArray();
             }
         }
-        var bytes = File.ReadAllBytes("Day13.png");
         try
         {
             var imageContent = Convert.ToBase64String(bytes);
@@ -110,11 +111,11 @@ fold along x=5";
                     break;
                 }
             }
-            File.Delete("Day13.png");
             return returnString;
         }
         catch (Exception)
         {
+            await File.WriteAllBytesAsync("Day13.png", bytes);
             throw new Exception($"Error processing data using Google Vision API - image saved as Day13.png");
         }
     }
