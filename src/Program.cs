@@ -162,6 +162,7 @@ class Program
         {
             services.AddSingleton(type);
         }
+        services.AddSingleton(new AdventConfig { SessionCookie = adventCookie });
         services.AddHttpClient<IAdventWebClient, AdventWebClient>(
                 client =>
                 {

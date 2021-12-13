@@ -254,3 +254,7 @@ build/statmilk-cereal
 build/statmilk-marshal
 build/statmilk-wrangler
 build/statmilk-frontend
+
+# File specific
+key.json
+Day13.png
