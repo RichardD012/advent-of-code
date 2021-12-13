@@ -66,7 +66,7 @@ fold along x=5";
         var code = await ExtractLetters(coordinates);
         return code;
     }
-    private async Task<string> ExtractLetters(int[,] coordinates)
+    private static async Task<string> ExtractLetters(int[,] coordinates)
     {
         var letterWidth = 4;
         var spacing = 1;
@@ -162,7 +162,7 @@ fold along x=5";
         return newData;
     }
 
-    private (int[,], List<Fold>) ParseData(List<string> data)
+    private static (int[,], List<Fold>) ParseData(List<string> data)
     {
         var coordinates = new List<(int, int)>();
         var folds = new List<Fold>();
