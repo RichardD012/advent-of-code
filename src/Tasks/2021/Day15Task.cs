@@ -99,8 +99,8 @@ public class Day15Task : BaseCodeTask, IAdventCodeTask
     //AStar Pathfinding Algorithm: https://en.wikipedia.org/wiki/A*_search_algorithm
     private static List<(int, int)>? AStar(int[,] plot, (int, int) start, (int, int) goal)
     {
-        var openSet = new PriorityQueue<(int, int), int>();
-        var cameFrom = new Dictionary<(int, int), (int, int)>();
+        var priorityQueue = new PriorityQueue<(int, int), int>();
+        var prev = new Dictionary<(int, int), (int, int)>();
 
         var gScore = new Dictionary<(int, int), int>
         {
@@ -111,23 +111,23 @@ public class Day15Task : BaseCodeTask, IAdventCodeTask
         {
             [start] = 0
         };
-        openSet.Enqueue(start, fScore[start]);
+        priorityQueue.Enqueue(start, fScore[start]);
 
-        while (openSet.TryDequeue(out (int, int) cur, out int _))
+        while (priorityQueue.TryDequeue(out (int, int) current, out int _))
         {
-            if (cur.Item1 == goal.Item1 && cur.Item2 == goal.Item2)
+            if (current.Item1 == goal.Item1 && current.Item2 == goal.Item2)
             {
-                return GeneratePath(cameFrom, cur);
+                return GeneratePath(prev, current);
             }
-            foreach (var entry in GetNeighbors(plot, cur))
+            foreach (var entry in GetNeighbors(plot, current))
             {
-                var tentGScore = gScore[cur] + plot[entry.Item2, entry.Item1];
+                var tentGScore = gScore[current] + plot[entry.Item2, entry.Item1];
                 if (tentGScore < gScore.GetValueOrDefault(entry, int.MaxValue))
                 {
-                    cameFrom[entry] = cur;
+                    prev[entry] = current;
                     gScore[entry] = tentGScore;
-                    fScore[entry] = tentGScore + Distance(cur, (plot.GetLength(1) - 1, plot.GetLength(0) - 1));
-                    openSet.Enqueue(entry, fScore[entry]);
+                    fScore[entry] = tentGScore + Distance(current, (plot.GetLength(1) - 1, plot.GetLength(0) - 1));
+                    priorityQueue.Enqueue(entry, fScore[entry]);
                 }
             }
         }
@@ -135,8 +135,10 @@ public class Day15Task : BaseCodeTask, IAdventCodeTask
     }
     private static List<(int, int)> GeneratePath(Dictionary<(int, int), (int, int)> cameFrom, (int, int) current)
     {
-        List<(int, int)> res = new();
-        res.Add(current);
+        var res = new List<(int, int)>
+        {
+            current
+        };
         while (cameFrom.ContainsKey(current))
         {
             current = cameFrom[current];
@@ -145,7 +147,7 @@ public class Day15Task : BaseCodeTask, IAdventCodeTask
         res.Reverse();
         return res;
     }
-    //Manhattan distance heuristics 
+    //Manhattan distance heuristics - this works because the plotted distance from a point will always be bigger than one closer to the source
     private static int Distance((int, int) cur, (int, int) other)
     {
         int x = Math.Abs(cur.Item1 - other.Item1);
